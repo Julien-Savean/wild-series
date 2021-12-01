@@ -23,12 +23,12 @@ class Program
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $summary;
 
     /**
-     * @ORM\Column(type="text", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $poster;
 
