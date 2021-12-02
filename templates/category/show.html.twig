@@ -9,7 +9,7 @@
                 {% for program in programs|slice(0, 3) %}
                     <div>
                         <h2>{{ program.id }} / <a href="{{ path("program_show", { id: program.id }) }}">{{ program.title }}</a></h2>
-                        <p>{{ program.summary }}</p>
+                        <p>{{ program.synopsis }}</p>
                     </div>
                 {% else %}
                     Aucune série trouvée.
