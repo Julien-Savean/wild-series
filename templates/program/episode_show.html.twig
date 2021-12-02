@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}S{{season.number}} - Episode {{ episode.number }}{% endblock %}
+
+{% block body %}
+    <div class="media">
+        <div class="media-body">
+                <h1>{{ program.title }}</h1>
+                <h2>Saison : {{ season.number }}</h2>
+                {% if episode %}
+                    <h2>Episode {{ episode.number }} : {{ episode.title }} </h1>
+                    <p>{{ episode.synopsis }}</p>
+                {% else %}
+                    Aucune série trouvée.
+                {% endif %}  
+        </div>
+    </div>
+
+    <a href="{{ path('program_season_show', { program: program.id, season: season.id}) }}">
+        Retour à la liste des épisodes
+    </a> 
+    <br>
+    <a href="{{ path('app_index') }}">
+        Retour à l'accueil
+    </a>
+{% endblock %}
