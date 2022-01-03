@@ -12,13 +12,13 @@
                     <p>{{ episode.synopsis }}</p>
                 {% else %}
                     Aucune série trouvée.
-                {% endif %}  
+                {% endif %}
         </div>
     </div>
 
-    <a href="{{ path('program_season_show', { program: program.id, season: season.id}) }}">
+    <a href="{{ path('program_season_show', { program: program.slug, season: season.id}) }}">
         Retour à la liste des épisodes
-    </a> 
+    </a>
     <br>
     <a href="{{ path('app_index') }}">
         Retour à l'accueil

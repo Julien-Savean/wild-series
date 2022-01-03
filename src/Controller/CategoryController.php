@@ -25,7 +25,7 @@ class CategoryController extends AbstractController
             ->findAll();
 
         return $this->render(
-            'category/index.html.twig', 
+            'category/index.html.twig',
             ['categories' => $categories]
         );
     }
@@ -78,11 +78,11 @@ class CategoryController extends AbstractController
                 ->findBy(
                     ['category' => $category],
                     ['id' => 'DESC']
-                );   
-                
+                );
+
                 return $this->render('category/show.html.twig', [
                 'category' => $category,
-                'programs' => $programs,  
+                'programs' => $programs,
                 ]);
         }
     }

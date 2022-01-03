@@ -26,7 +26,7 @@ class Category
      * @Assert\Length(max="255")
      */
     private $name;
-    
+
     /**
      * @ORM\OneToMany(targetEntity=Program::class, mappedBy="category")
      */

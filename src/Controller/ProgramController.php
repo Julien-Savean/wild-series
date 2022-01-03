@@ -6,6 +6,7 @@ use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
 use App\Form\ProgramType;
+use App\Service\Slugify;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,22 +28,22 @@ class ProgramController extends AbstractController
             ->findAll();
 
         return $this->render(
-            'program/index.html.twig', 
+            'program/index.html.twig',
             ['programs' => $programs]
         );
     }
-    
+
     /**
      * The controller for the program add form
      *
      * @Route("/new", name="new")
      */
-    public function new(Request $request) : Response
+    public function new(Request $request, Slugify $slugify) : Response
     {
         // Create a new Program Object
-        $Program = new Program();
+        $program = new Program();
         // Create the associated Form
-        $form = $this->createForm(ProgramType::class, $Program);
+        $form = $this->createForm(ProgramType::class, $program);
         // Get data from HTTP request
         $form->handleRequest($request);
         // Was the form submitted ?
@@ -50,8 +51,12 @@ class ProgramController extends AbstractController
             // Deal with the submitted data
             // Get the Entity Manager
             $entityManager = $this->getDoctrine()->getManager();
+
+            $slug = $slugify->generate($program->getTitle());
+
+            $program->setSlug($slug);
             // Persist Program Object
-            $entityManager->persist($Program);
+            $entityManager->persist($program);
             // Flush the persisted object
             $entityManager->flush();
             // Finally redirect to programs list
@@ -60,9 +65,9 @@ class ProgramController extends AbstractController
         // Render the form
         return $this->render('program/new.html.twig', ["form" => $form->createView()]);
     }
-    
+
     /**
-     * @Route("/{id}/", methods={"GET"},  name="show")
+     * @Route("/{slug}/", methods={"GET"},  name="show")
      */
     public function show(Program $program): Response
     {
@@ -71,7 +76,7 @@ class ProgramController extends AbstractController
         ->findBy(
             ['program' => $program],
             ['number' => 'ASC'],
-        ); 
+        );
 
         return $this->render('program/show.html.twig', [
             'program' => $program,
@@ -90,7 +95,7 @@ class ProgramController extends AbstractController
             ['season' => $season],
             ['number' => 'ASC'],
         );
-       
+
         if (!$season) {
             throw $this->createNotFoundException(
                 'No season with id : '.$season.' found in program\'s table.'
@@ -114,6 +119,4 @@ class ProgramController extends AbstractController
             'episode' => $episode,
         ]);
     }
-
-    
 }
