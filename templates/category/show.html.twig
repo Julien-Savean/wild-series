@@ -8,7 +8,7 @@
                 <h1>Les trois dernières séries de la catégorie {{ category.name }} : </h1>
                 {% for program in programs|slice(0, 3) %}
                     <div>
-                        <h2>{{ program.id }} / <a href="{{ path("program_show", { id: program.id }) }}">{{ program.title }}</a></h2>
+                        <h2>{{ program.id }} / <a href="{{ path("program_show", { slug: program.slug }) }}">{{ program.title }}</a></h2>
                         <p>{{ program.synopsis }}</p>
                     </div>
                 {% else %}

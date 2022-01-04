@@ -11,7 +11,7 @@ class SeasonFixtures extends Fixture implements DependentFixtureInterface
 {
     public const SEASON = [
         [
-            "Walking Dead",
+            "0",
             "1",
             "2010",
             "Après une épidémie post-apocalyptique ayant transformé la quasi-totalité de la population américaine et mondiale en mort-vivants ou « rôdeurs », un groupe d'hommes et de femmes mené par l'adjoint du shérif du comté de Kings (en Géorgie) USA, Rick Grimes, tente de survivre…
@@ -47,7 +47,7 @@ class SeasonFixtures extends Fixture implements DependentFixtureInterface
     {
         foreach (self::SEASON as $key => $saison){
             $season = new Season();
-            $season->setProgram($this->getReference('program_' . $key));
+            $season->setProgram($this->getReference('program_' . $saison[0]));
             $season->setNumber($saison[1]);
             $season->setYear($saison[2]);
             $season->setDescription($saison[3]);
